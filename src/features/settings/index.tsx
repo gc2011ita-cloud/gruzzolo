@@ -1,10 +1,14 @@
 import { Settings } from 'lucide-react'
 import { t } from '../../i18n'
 import type { FeatureModule } from '../types'
+import { InitialBalancePage } from './InitialBalancePage'
 import { SettingsPage } from './SettingsPage'
 
 export const settingsModule: FeatureModule = {
   id: 'settings',
   tab: { path: '/impostazioni', label: t().nav.settings, icon: Settings, order: 90 },
-  routes: [{ path: '/impostazioni', element: <SettingsPage /> }],
+  routes: [
+    { path: '/impostazioni', element: <SettingsPage /> },
+    { path: '/impostazioni/saldo-iniziale', element: <InitialBalancePage /> },
+  ],
 }

@@ -9,11 +9,15 @@ interface Props {
   transaction: Transaction
   category?: Category
   isFuture: boolean
+  /** Testo iniziale della riga di dettaglio, per esempio la data. */
+  caption?: string
 }
 
-export function TransactionRow({ transaction: tx, category, isFuture }: Props) {
+export function TransactionRow({ transaction: tx, category, isFuture, caption }: Props) {
   const amount = tx.type === 'income' ? tx.amountCents : -tx.amountCents
-  const detail = [tx.note, tx.tags.map((tag) => `#${tag}`).join(' ')].filter(Boolean).join(' · ')
+  const detail = [caption, tx.note, tx.tags.map((tag) => `#${tag}`).join(' ')]
+    .filter(Boolean)
+    .join(' · ')
 
   return (
     <Link

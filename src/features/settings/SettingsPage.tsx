@@ -1,10 +1,12 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Hash, LayoutGrid } from 'lucide-react'
+import { Hash, LayoutGrid, Wallet } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { LinkRow, ListGroup } from '../../components/ListGroup'
 import { PageHeader } from '../../components/PageHeader'
 import { db } from '../../db/db'
+import { useSettings } from '../../db/settings'
 import { t } from '../../i18n'
+import { formatCents } from '../../lib/money'
 
 function RowIcon({ color, children }: { color: string; children: ReactNode }) {
   return (
@@ -19,6 +21,7 @@ function RowIcon({ color, children }: { color: string; children: ReactNode }) {
 }
 
 export function SettingsPage() {
+  const settings = useSettings()
   const categoryCount = useLiveQuery(
     async () => (await db.categories.toArray()).filter((c) => !c.archived).length,
     [],
@@ -31,6 +34,18 @@ export function SettingsPage() {
   return (
     <>
       <PageHeader title={t().settings.title} />
+      <ListGroup title={t().settings.money}>
+        <LinkRow
+          to="/impostazioni/saldo-iniziale"
+          label={t().settings.initialBalance}
+          detail={settings ? formatCents(settings.initialBalanceCents) : undefined}
+          icon={
+            <RowIcon color="#2563eb">
+              <Wallet />
+            </RowIcon>
+          }
+        />
+      </ListGroup>
       <ListGroup title={t().settings.organize}>
         <LinkRow
           to="/impostazioni/categorie"

@@ -14,6 +14,10 @@
   --expense: #c2002a;
   --warning: #9a5b00;
   --accent-text: var(--accent);
+  /* Serie dei grafici: coppia blu/arancio verificata per daltonismo (ΔE ≥ 24). */
+  --chart-income: #2a78d6;
+  --chart-expense: #eb6834;
+  --chart-grid: #e5e5ea;
 }
 
 :root[data-theme='dark'] {
@@ -28,6 +32,9 @@
   --warning: #fbbf24;
   /* L'accento scuro va schiarito per restare leggibile come testo su fondo nero. */
   --accent-text: color-mix(in oklab, var(--accent), white 45%);
+  --chart-income: #3987e5;
+  --chart-expense: #d95926;
+  --chart-grid: #2c2c2e;
 }
 
 @theme inline {
@@ -42,6 +49,8 @@
   --color-income: var(--income);
   --color-expense: var(--expense);
   --color-warning: var(--warning);
+  --color-chart-income: var(--chart-income);
+  --color-chart-expense: var(--chart-expense);
   --font-sans:
     -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     sans-serif;
