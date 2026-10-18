@@ -55,10 +55,9 @@ const list = [
 
 describe('normalizeTags', () => {
   it('pulisce, porta in minuscolo e toglie i duplicati', () => {
-    expect(normalizeTags(['#Pizza', ' pizza ', 'Gita   al mare', '', '##'])).toEqual([
-      'pizza',
-      'gita al mare',
-    ])
+    expect(normalizeTags(['#Pizza', ' pizza ', 'Gita   al mare', '', '##', 'mare,estate'])).toEqual(
+      ['pizza', 'gita al mare', 'mare estate'],
+    )
   })
 })
 

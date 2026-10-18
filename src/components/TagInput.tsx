@@ -21,6 +21,20 @@ export function TagInput({ value, onChange, suggestions }: Props) {
     setDraft('')
   }
 
+  /** La virgola separa i tag, anche quando si incolla "a, b, c". */
+  const handleTyping = (text: string) => {
+    if (!text.includes(',')) return setDraft(text)
+    const parts = text.split(',')
+    const rest = parts.pop() ?? ''
+    const next = [...value]
+    for (const p of parts) {
+      const tag = normalizeTag(p)
+      if (tag && !next.includes(tag)) next.push(tag)
+    }
+    if (next.length !== value.length) onChange(next)
+    setDraft(rest.trimStart())
+  }
+
   const q = foldText(draft.trim())
   const matches = suggestions
     .filter((s) => !value.includes(s) && (!q || foldText(s).includes(q)))
@@ -56,12 +70,7 @@ export function TagInput({ value, onChange, suggestions }: Props) {
           autoCorrect="off"
           enterKeyHint="enter"
           placeholder={t().tx.tagPlaceholder}
-          onChange={(e) => {
-            const v = e.target.value
-            // La virgola chiude il tag, comodo sulla tastiera dell'iPhone.
-            if (v.endsWith(',')) add(v.slice(0, -1))
-            else setDraft(v)
-          }}
+          onChange={(e) => handleTyping(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault()

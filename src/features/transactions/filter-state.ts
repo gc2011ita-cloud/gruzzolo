@@ -11,6 +11,15 @@ export const emptyFilters: ListFilterState = { period: 'all' }
 
 const KEY = 'gruzzolo.listFilters'
 
+/** Imposta i filtri che l'elenco movimenti userà alla prossima apertura. */
+export function storeFilters(filters: ListFilterState): void {
+  try {
+    sessionStorage.setItem(KEY, JSON.stringify(filters))
+  } catch {
+    // Archiviazione non disponibile: l'elenco si aprirà senza filtri.
+  }
+}
+
 /** Filtri dell'elenco, conservati per la sessione (tornando da un movimento restano impostati). */
 export function usePersistentFilters(): [ListFilterState, (f: ListFilterState) => void] {
   const [filters, setFilters] = useState<ListFilterState>(() => {

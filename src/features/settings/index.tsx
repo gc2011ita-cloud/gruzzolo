@@ -1,10 +1,10 @@
 import { Settings } from 'lucide-react'
-import { Placeholder } from '../../components/Placeholder'
 import { t } from '../../i18n'
 import type { FeatureModule } from '../types'
+import { SettingsPage } from './SettingsPage'
 
 export const settingsModule: FeatureModule = {
   id: 'settings',
   tab: { path: '/impostazioni', label: t().nav.settings, icon: Settings, order: 90 },
-  routes: [{ path: '/impostazioni', element: <Placeholder title={t().nav.settings} /> }],
+  routes: [{ path: '/impostazioni', element: <SettingsPage /> }],
 }

@@ -5,7 +5,7 @@ import { t } from '../i18n'
 /** Pulsante "+" sempre visibile per aggiungere un movimento (nascosto dentro il form). */
 export function Fab() {
   const { pathname } = useLocation()
-  if (pathname.startsWith('/movimenti/')) return null
+  if (pathname.startsWith('/movimenti/') || pathname.startsWith('/impostazioni/')) return null
 
   return (
     <Link
