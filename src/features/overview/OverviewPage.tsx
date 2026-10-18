@@ -18,6 +18,7 @@ import {
   upcoming,
 } from '../../lib/stats'
 import type { TransactionType } from '../../models'
+import { BackupReminder } from '../data/BackupReminder'
 import { storeFilters } from '../transactions/filter-state'
 import { useCategoryMap } from '../transactions/hooks'
 import { TransactionRow } from '../transactions/TransactionRow'
@@ -104,6 +105,7 @@ export function OverviewPage() {
   return (
     <>
       <PageHeader title={t().nav.overview} />
+      <BackupReminder />
       <div className="space-y-4">
         <BalanceCard balance={data.balance} />
 

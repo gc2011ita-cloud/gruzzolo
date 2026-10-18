@@ -1,4 +1,5 @@
 import { categoriesModule } from './categories'
+import { dataModule } from './data'
 import { investmentsModule } from './investments'
 import { overviewModule } from './overview'
 import { settingsModule } from './settings'
@@ -14,6 +15,7 @@ export const features: FeatureModule[] = [
   settingsModule,
   categoriesModule,
   tagsModule,
+  dataModule,
 ]
 
 export const tabs = features

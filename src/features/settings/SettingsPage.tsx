@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Hash, LayoutGrid, Wallet } from 'lucide-react'
+import { DatabaseBackup, Hash, LayoutGrid, Wallet } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { LinkRow, ListGroup } from '../../components/ListGroup'
 import { PageHeader } from '../../components/PageHeader'
@@ -64,6 +64,17 @@ export function SettingsPage() {
           icon={
             <RowIcon color="#7c3aed">
               <Hash />
+            </RowIcon>
+          }
+        />
+      </ListGroup>
+      <ListGroup title={t().settings.data}>
+        <LinkRow
+          to="/impostazioni/dati"
+          label={t().settings.dataBackup}
+          icon={
+            <RowIcon color="#ea580c">
+              <DatabaseBackup />
             </RowIcon>
           }
         />
