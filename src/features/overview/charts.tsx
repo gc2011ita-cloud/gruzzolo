@@ -27,47 +27,9 @@ import {
   type TrendPoint,
 } from '../../lib/stats'
 import type { TransactionType } from '../../models'
-import { ChartCard, DataTable } from './ChartCard'
-
-const whole = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 0, useGrouping: 'always' })
-/** Etichette dell'asse in euro: "1.500", "120k", "1,2 Mln" (it-IT non ha un formato compatto per le migliaia). */
-function axisEuro(v: number): string {
-  const a = Math.abs(v)
-  if (a >= 1_000_000)
-    return `${(v / 1_000_000).toLocaleString('it-IT', { maximumFractionDigits: 1 })} Mln`
-  if (a >= 100_000) return `${Math.round(v / 1000)}k`
-  return whole.format(v)
-}
-const axisTick = { fill: 'var(--muted)', fontSize: 11 }
-const pct = (share: number) =>
-  share.toLocaleString('it-IT', { style: 'percent', maximumFractionDigits: share < 0.1 ? 1 : 0 })
-
-function TooltipBox({
-  title,
-  rows,
-}: {
-  title: string
-  rows: { label: string; value: string; color?: string; dashed?: boolean }[]
-}) {
-  return (
-    <div className="rounded-xl bg-surface px-3 py-2 text-sm shadow-lg ring-1 ring-border">
-      <p className="mb-1 font-semibold first-letter:uppercase">{title}</p>
-      {rows.map((r) => (
-        <p key={r.label} className="flex items-center gap-2">
-          {r.color && (
-            <span
-              aria-hidden="true"
-              className="h-2.5 w-2.5 shrink-0 rounded-full"
-              style={{ backgroundColor: r.color }}
-            />
-          )}
-          <span className="text-muted">{r.label}</span>
-          <span className="ml-auto pl-3 font-semibold tabular-nums">{r.value}</span>
-        </p>
-      ))}
-    </div>
-  )
-}
+import { ChartCard, DataTable } from '../../components/ChartCard'
+import { TooltipBox } from '../../components/chart-kit'
+import { axisEuro, axisTick, pct } from '../../lib/chart-format'
 
 /* ---------- Spesa per categoria ---------- */
 

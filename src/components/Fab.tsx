@@ -5,7 +5,10 @@ import { t } from '../i18n'
 /** Pulsante "+" sempre visibile per aggiungere un movimento (nascosto dentro il form). */
 export function Fab() {
   const { pathname } = useLocation()
-  if (pathname.startsWith('/movimenti/') || pathname.startsWith('/impostazioni/')) return null
+  // Nascosto nelle pagine interne (form e dettagli), visibile nelle schede principali.
+  if (['/movimenti/', '/impostazioni/', '/investimenti/'].some((p) => pathname.startsWith(p))) {
+    return null
+  }
 
   return (
     <Link
