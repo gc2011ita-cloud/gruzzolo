@@ -94,3 +94,24 @@ export function dayLabel(iso: ISODate, now: Date = new Date()): string {
 export function formatDate(iso: ISODate, pattern = 'd MMM yyyy'): string {
   return format(fromISODate(iso), pattern, { locale: it })
 }
+
+/** Etichetta leggibile di un periodo: "ottobre 2026", "12–18 ott 2026", "2026". */
+export function periodLabel(kind: PeriodKind, range: DateRange): string {
+  const from = fromISODate(range.from)
+  const to = fromISODate(range.to)
+  switch (kind) {
+    case 'month':
+      return format(from, 'LLLL yyyy', { locale: it })
+    case 'year':
+      return format(from, 'yyyy')
+    case 'week':
+    case 'custom': {
+      const sameYear = range.from.slice(0, 4) === range.to.slice(0, 4)
+      const sameMonth = sameYear && range.from.slice(5, 7) === range.to.slice(5, 7)
+      const start = format(from, sameMonth ? 'd' : sameYear ? 'd MMM' : 'd MMM yyyy', {
+        locale: it,
+      })
+      return `${start}–${format(to, 'd MMM yyyy', { locale: it })}`
+    }
+  }
+}

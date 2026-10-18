@@ -18,7 +18,7 @@ export function TabBar() {
               end={path === '/'}
               className={({ isActive }) =>
                 `pressable flex min-h-14 flex-col items-center justify-center gap-0.5 text-[0.7rem] font-medium lg:min-h-11 lg:flex-row lg:justify-start lg:gap-3 lg:rounded-xl lg:px-3 lg:text-base ${
-                  isActive ? 'text-accent lg:bg-surface-2' : 'text-muted'
+                  isActive ? 'text-accent-text lg:bg-surface-2' : 'text-muted'
                 }`
               }
             >

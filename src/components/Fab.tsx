@@ -1,9 +1,12 @@
 import { Plus } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { t } from '../i18n'
 
-/** Pulsante "+" sempre visibile per aggiungere un movimento. */
+/** Pulsante "+" sempre visibile per aggiungere un movimento (nascosto dentro il form). */
 export function Fab() {
+  const { pathname } = useLocation()
+  if (pathname.startsWith('/movimenti/')) return null
+
   return (
     <Link
       to="/movimenti/nuovo"

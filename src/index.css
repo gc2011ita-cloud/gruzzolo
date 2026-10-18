@@ -13,6 +13,7 @@
   --income: #13773a;
   --expense: #c2002a;
   --warning: #9a5b00;
+  --accent-text: var(--accent);
 }
 
 :root[data-theme='dark'] {
@@ -25,10 +26,13 @@
   --income: #4ade80;
   --expense: #ff7b7b;
   --warning: #fbbf24;
+  /* L'accento scuro va schiarito per restare leggibile come testo su fondo nero. */
+  --accent-text: color-mix(in oklab, var(--accent), white 45%);
 }
 
 @theme inline {
   --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
@@ -64,7 +68,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--accent-text);
     outline-offset: 2px;
   }
 

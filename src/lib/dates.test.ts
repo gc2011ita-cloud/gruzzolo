@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { dayLabel, isISODate, periodRange, shiftPeriod } from './dates'
+import { dayLabel, isISODate, periodLabel, periodRange, shiftPeriod } from './dates'
 
 const ref = new Date(2026, 9, 18) // domenica 18 ottobre 2026
 
@@ -43,5 +43,16 @@ describe('isISODate', () => {
     expect(isISODate('2026-02-28')).toBe(true)
     expect(isISODate('2026-02-30')).toBe(false)
     expect(isISODate('28/02/2026')).toBe(false)
+  })
+})
+
+describe('periodLabel', () => {
+  it('descrive il periodo in italiano', () => {
+    expect(periodLabel('month', periodRange('month', ref))).toBe('ottobre 2026')
+    expect(periodLabel('year', periodRange('year', ref))).toBe('2026')
+    expect(periodLabel('week', periodRange('week', ref))).toBe('12–18 ott 2026')
+    expect(periodLabel('custom', { from: '2026-09-28', to: '2026-10-04' })).toBe(
+      '28 set–4 ott 2026',
+    )
   })
 })
