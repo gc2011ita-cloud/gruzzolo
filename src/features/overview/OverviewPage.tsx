@@ -19,6 +19,7 @@ import {
 } from '../../lib/stats'
 import type { TransactionType } from '../../models'
 import { BackupReminder } from '../data/BackupReminder'
+import { InstallBanner } from '../settings/InstallBanner'
 import { storeFilters } from '../transactions/filter-state'
 import { useCategoryMap } from '../transactions/hooks'
 import { TransactionRow } from '../transactions/TransactionRow'
@@ -78,6 +79,7 @@ export function OverviewPage() {
     return (
       <>
         <PageHeader title={t().nav.overview} />
+        <InstallBanner />
         <section className="rounded-2xl bg-surface p-5">
           <h2 className="text-xl font-semibold">{t().overview.welcomeTitle}</h2>
           <p className="mt-2 text-muted">{t().overview.welcomeBody}</p>
@@ -105,6 +107,7 @@ export function OverviewPage() {
   return (
     <>
       <PageHeader title={t().nav.overview} />
+      <InstallBanner />
       <BackupReminder />
       <div className="space-y-4">
         <BalanceCard balance={data.balance} />

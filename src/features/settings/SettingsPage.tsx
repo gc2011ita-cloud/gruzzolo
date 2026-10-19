@@ -1,5 +1,14 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { DatabaseBackup, Hash, LayoutGrid, Wallet } from 'lucide-react'
+import {
+  DatabaseBackup,
+  Hash,
+  Info,
+  LayoutGrid,
+  Lock,
+  Palette,
+  Smartphone,
+  Wallet,
+} from 'lucide-react'
 import type { ReactNode } from 'react'
 import { LinkRow, ListGroup } from '../../components/ListGroup'
 import { PageHeader } from '../../components/PageHeader'
@@ -7,6 +16,7 @@ import { db } from '../../db/db'
 import { useSettings } from '../../db/settings'
 import { t } from '../../i18n'
 import { formatCents } from '../../lib/money'
+import { isStandalone } from '../../lib/platform'
 
 function RowIcon({ color, children }: { color: string; children: ReactNode }) {
   return (
@@ -75,6 +85,48 @@ export function SettingsPage() {
           icon={
             <RowIcon color="#ea580c">
               <DatabaseBackup />
+            </RowIcon>
+          }
+        />
+      </ListGroup>
+      <ListGroup title={t().settings.app}>
+        <LinkRow
+          to="/impostazioni/sicurezza"
+          label={t().settings.security}
+          detail={settings ? (settings.pin ? t().settings.pinOn : t().settings.pinOff) : undefined}
+          icon={
+            <RowIcon color="#475569">
+              <Lock />
+            </RowIcon>
+          }
+        />
+        <LinkRow
+          to="/impostazioni/aspetto"
+          label={t().settings.appearance}
+          icon={
+            <RowIcon color="#db2777">
+              <Palette />
+            </RowIcon>
+          }
+        />
+        {!isStandalone() && (
+          <LinkRow
+            to="/impostazioni/installa"
+            label={t().install.title}
+            icon={
+              <RowIcon color="#16a34a">
+                <Smartphone />
+              </RowIcon>
+            }
+          />
+        )}
+        <LinkRow
+          to="/impostazioni/info"
+          label={t().settings.info}
+          detail={__APP_VERSION__}
+          icon={
+            <RowIcon color="#6b7280">
+              <Info />
             </RowIcon>
           }
         />

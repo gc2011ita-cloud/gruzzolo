@@ -80,6 +80,8 @@ export interface PinConfig {
   hash: string
   salt: string
   iterations: number
+  /** Numero di cifre, per confermare il PIN appena digitato senza premere Invio. */
+  length?: number
 }
 
 export interface Settings {
@@ -89,6 +91,7 @@ export interface Settings {
   initialBalanceCents: Cents
   backupReminderDays: number
   lastBackupAt: number | null
+  /** Minuti di inattività o in background prima del blocco (0 = subito). */
   autoLockMinutes: number
   pin: PinConfig | null
   installHintDismissedAt: number | null

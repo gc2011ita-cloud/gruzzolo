@@ -16,6 +16,11 @@ export function useApplyTheme(pref: ThemePreference, accent: string): void {
       const theme = resolveTheme(pref)
       root.dataset.theme = theme
       root.style.colorScheme = theme
+      // Colore della barra di stato/indirizzi coerente con il tema scelto.
+      for (const meta of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+        meta.content = theme === 'dark' ? '#000000' : '#f2f2f7'
+        meta.removeAttribute('media')
+      }
     }
     apply()
     if (pref !== 'auto' || !window.matchMedia) return

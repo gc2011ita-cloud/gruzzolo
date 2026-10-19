@@ -37,6 +37,22 @@
   --chart-grid: #2c2c2e;
 }
 
+@theme {
+  --animate-shake: shake 0.35s ease-in-out;
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-8px);
+    }
+    75% {
+      transform: translateX(8px);
+    }
+  }
+}
+
 @theme inline {
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
@@ -107,5 +123,14 @@
   &:active {
     transform: scale(0.97);
     opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
