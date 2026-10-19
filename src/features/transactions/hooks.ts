@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { useMemo } from 'react'
 import { db } from '../../db/db'
+import { listTags } from '../../db/queries'
 import type { Category, CategoryKind } from '../../models'
 
 /** Categorie non archiviate di un tipo, nell'ordine scelto dall'utente. */
@@ -20,8 +21,8 @@ export function useCategoryMap(): Map<string, Category> {
 
 /** Tag già usati, in ordine alfabetico. */
 export function useAllTags(): string[] {
-  const tags = useLiveQuery(() => db.transactions.orderBy('tags').uniqueKeys(), [])
-  return (tags as string[] | undefined) ?? NO_TAGS
+  const tags = useLiveQuery(() => listTags(db), [])
+  return tags ?? NO_TAGS
 }
 
 const NO_TAGS: string[] = []

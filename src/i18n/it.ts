@@ -453,6 +453,11 @@ export const it = {
     desktop:
       'Su computer puoi installarla da Chrome o Edge con l’icona di installazione nella barra degli indirizzi.',
   },
+  errors: {
+    title: 'Qualcosa è andato storto',
+    body: 'Questa pagina non si è caricata. I tuoi dati non sono stati toccati. Se il problema si ripete, riferisci il messaggio qui sotto.',
+    home: 'Panoramica',
+  },
 } as const
 
 type Widen<T> = T extends string ? string : { [K in keyof T]: Widen<T[K]> }

@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { GruzzoloDB, newId } from './db'
+import { countByCategory, listTags } from './queries'
 import { defaultCategories } from './seed'
 import { defaultSettings, getSettings, setSetting } from './settings'
 
@@ -72,5 +73,28 @@ describe('impostazioni', () => {
     expect(s.initialBalanceCents).toBe(150000)
     expect(s.theme).toBe('dark')
     expect(s.accent).toBe(defaultSettings.accent)
+  })
+})
+
+describe('letture aggregate', () => {
+  it('elenca i tag e conta i movimenti per categoria senza cursori sugli indici', async () => {
+    const db = freshDb()
+    const base = {
+      note: '',
+      createdAt: 0,
+      updatedAt: 0,
+      type: 'expense' as const,
+      date: '2026-10-01',
+    }
+    await db.transactions.bulkAdd([
+      { ...base, id: newId(), amountCents: 1, categoryId: 'exp-dining', tags: ['pizza', 'amici'] },
+      { ...base, id: newId(), amountCents: 2, categoryId: 'exp-dining', tags: ['caffè'] },
+      { ...base, id: newId(), amountCents: 3, categoryId: 'exp-home', tags: ['amici'] },
+    ])
+    expect(await listTags(db)).toEqual(['amici', 'caffè', 'pizza'])
+    expect(Object.fromEntries(await countByCategory(db))).toEqual({
+      'exp-dining': 2,
+      'exp-home': 1,
+    })
   })
 })

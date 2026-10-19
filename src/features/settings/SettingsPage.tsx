@@ -13,6 +13,7 @@ import type { ReactNode } from 'react'
 import { LinkRow, ListGroup } from '../../components/ListGroup'
 import { PageHeader } from '../../components/PageHeader'
 import { db } from '../../db/db'
+import { listTags } from '../../db/queries'
 import { useSettings } from '../../db/settings'
 import { t } from '../../i18n'
 import { formatCents } from '../../lib/money'
@@ -36,10 +37,7 @@ export function SettingsPage() {
     async () => (await db.categories.toArray()).filter((c) => !c.archived).length,
     [],
   )
-  const tagCount = useLiveQuery(
-    async () => (await db.transactions.orderBy('tags').uniqueKeys()).length,
-    [],
-  )
+  const tagCount = useLiveQuery(async () => (await listTags(db)).length, [])
 
   return (
     <>

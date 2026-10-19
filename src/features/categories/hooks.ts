@@ -1,15 +1,11 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../db/db'
+import { countByCategory } from '../../db/queries'
 import { fmt, t } from '../../i18n'
 
-/** Numero di movimenti per categoria (legge solo l'indice, non i movimenti). */
+/** Numero di movimenti per categoria. */
 export function useCategoryUsage(): Map<string, number> | undefined {
-  return useLiveQuery(async () => {
-    const keys = (await db.transactions.orderBy('categoryId').keys()) as string[]
-    const map = new Map<string, number>()
-    for (const k of keys) map.set(k, (map.get(k) ?? 0) + 1)
-    return map
-  }, [])
+  return useLiveQuery(() => countByCategory(db), [])
 }
 
 export function usageLabel(n: number): string {
