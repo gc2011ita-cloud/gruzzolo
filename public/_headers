@@ -1,0 +1,20 @@
+# Intestazioni HTTP per Netlify e Cloudflare Pages (GitHub Pages le ignora).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(self), geolocation=(), microphone=(), payment=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+
+# Il service worker e il manifest vanno sempre ricontrollati, così gli aggiornamenti arrivano subito.
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+
+# I file in assets/ hanno l'hash nel nome: possono restare in cache per sempre.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

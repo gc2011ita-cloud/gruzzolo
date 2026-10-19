@@ -1,0 +1,8 @@
+# Alternativa a GitHub Pages: Netlify (le intestazioni HTTP sono in public/_headers).
+[build]
+  command = "npm run lint && npm test && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  BASE_PATH = "/"
